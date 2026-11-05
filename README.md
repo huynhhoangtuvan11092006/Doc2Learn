@@ -50,3 +50,4 @@ Doc2Learn/
 - `feature/phase4-evaluation`: Quantitative benchmarking (ROUGE-L, BLEU-4).
 - `feature/phase5-serving-api`: vLLM high-speed inference & FastAPI REST endpoints.
 - `feature/phase6-ui-demo`: Streamlit interactive web interface.
+
