@@ -2,7 +2,7 @@
 # Designed for Meta-Llama-3-8B-Instruct fine-tuning on consumer/free-tier GPUs (e.g. Nvidia T4 / RTX 3060)
 
 model:
-  base_model_name: "meta-llama/Meta-Llama-3-8B-Instruct"
+  base_model_name: "unsloth/llama-3-8b-Instruct"
   torch_dtype: "bfloat16"
   trust_remote_code: true
 
