@@ -142,36 +142,62 @@ def run_gpu_training(config: Dict[str, Any], output_dir: Path):
     loader = DataLoaderLlama(config["paths"]["train_data"], config["paths"]["val_data"])
     train_dataset, val_dataset = loader.get_datasets()
 
-    # 6. Configure TrainingArguments
+    # 6. Configure TrainingArguments / SFTConfig (Compatible with both new and older TRL versions)
     train_cfg = config["training"]
-    training_args = TrainingArguments(
-        output_dir=str(output_dir),
-        num_train_epochs=train_cfg["num_train_epochs"],
-        per_device_train_batch_size=train_cfg["per_device_train_batch_size"],
-        gradient_accumulation_steps=train_cfg["gradient_accumulation_steps"],
-        learning_rate=float(train_cfg["learning_rate"]),
-        lr_scheduler_type=train_cfg["lr_scheduler_type"],
-        weight_decay=train_cfg["weight_decay"],
-        optim=train_cfg["optim"],
-        logging_steps=train_cfg["logging_steps"],
-        save_strategy=train_cfg["save_strategy"],
-        seed=train_cfg["seed"],
-        fp16=not torch.cuda.is_bf16_supported(),
-        bf16=torch.cuda.is_bf16_supported(),
-        report_to="none",
-    )
-
-    # 7. SFTTrainer
-    trainer = SFTTrainer(
-        model=model,
-        train_dataset=train_dataset,
-        eval_dataset=val_dataset,
-        peft_config=peft_config,
-        dataset_text_field="text",
-        max_seq_length=train_cfg["max_seq_length"],
-        tokenizer=tokenizer,
-        args=training_args,
-    )
+    try:
+        from trl import SFTConfig
+        training_args = SFTConfig(
+            output_dir=str(output_dir),
+            num_train_epochs=train_cfg["num_train_epochs"],
+            per_device_train_batch_size=train_cfg["per_device_train_batch_size"],
+            gradient_accumulation_steps=train_cfg["gradient_accumulation_steps"],
+            learning_rate=float(train_cfg["learning_rate"]),
+            lr_scheduler_type=train_cfg["lr_scheduler_type"],
+            weight_decay=train_cfg["weight_decay"],
+            optim=train_cfg["optim"],
+            logging_steps=train_cfg["logging_steps"],
+            save_strategy=train_cfg["save_strategy"],
+            seed=train_cfg["seed"],
+            fp16=not torch.cuda.is_bf16_supported(),
+            bf16=torch.cuda.is_bf16_supported(),
+            report_to="none",
+            max_seq_length=train_cfg["max_seq_length"],
+            dataset_text_field="text",
+        )
+        trainer = SFTTrainer(
+            model=model,
+            train_dataset=train_dataset,
+            eval_dataset=val_dataset,
+            peft_config=peft_config,
+            args=training_args,
+        )
+    except (ImportError, TypeError):
+        training_args = TrainingArguments(
+            output_dir=str(output_dir),
+            num_train_epochs=train_cfg["num_train_epochs"],
+            per_device_train_batch_size=train_cfg["per_device_train_batch_size"],
+            gradient_accumulation_steps=train_cfg["gradient_accumulation_steps"],
+            learning_rate=float(train_cfg["learning_rate"]),
+            lr_scheduler_type=train_cfg["lr_scheduler_type"],
+            weight_decay=train_cfg["weight_decay"],
+            optim=train_cfg["optim"],
+            logging_steps=train_cfg["logging_steps"],
+            save_strategy=train_cfg["save_strategy"],
+            seed=train_cfg["seed"],
+            fp16=not torch.cuda.is_bf16_supported(),
+            bf16=torch.cuda.is_bf16_supported(),
+            report_to="none",
+        )
+        trainer = SFTTrainer(
+            model=model,
+            train_dataset=train_dataset,
+            eval_dataset=val_dataset,
+            peft_config=peft_config,
+            dataset_text_field="text",
+            max_seq_length=train_cfg["max_seq_length"],
+            tokenizer=tokenizer,
+            args=training_args,
+        )
 
     print("[*] Initiating SFTTrainer optimization loop...")
     trainer.train()
