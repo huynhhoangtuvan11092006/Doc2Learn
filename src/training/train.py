@@ -159,7 +159,7 @@ def run_gpu_training(config: Dict[str, Any], output_dir: Path):
             logging_steps=train_cfg["logging_steps"],
             save_strategy=train_cfg["save_strategy"],
             seed=train_cfg["seed"],
-            fp16=True,
+            fp16=False,
             bf16=False,
             report_to="none",
             max_length=train_cfg["max_seq_length"],
@@ -184,7 +184,7 @@ def run_gpu_training(config: Dict[str, Any], output_dir: Path):
             logging_steps=train_cfg["logging_steps"],
             save_strategy=train_cfg["save_strategy"],
             seed=train_cfg["seed"],
-            fp16=True,
+            fp16=False,
             bf16=False,
             report_to="none",
         )
