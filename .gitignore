@@ -40,6 +40,8 @@ data/raw/*
 !data/raw/sample.pdf
 data/processed/*
 !data/processed/.gitkeep
+data/synthetic/*
+!data/synthetic/.gitkeep
 models/
 checkpoints/
 *.pt
