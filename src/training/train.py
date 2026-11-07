@@ -151,7 +151,6 @@ def run_gpu_training(config: Dict[str, Any], output_dir: Path):
         gradient_accumulation_steps=train_cfg["gradient_accumulation_steps"],
         learning_rate=float(train_cfg["learning_rate"]),
         lr_scheduler_type=train_cfg["lr_scheduler_type"],
-        warmup_ratio=train_cfg["warmup_ratio"],
         weight_decay=train_cfg["weight_decay"],
         optim=train_cfg["optim"],
         logging_steps=train_cfg["logging_steps"],
