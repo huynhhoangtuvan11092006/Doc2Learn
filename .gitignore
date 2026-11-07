@@ -40,8 +40,11 @@ data/raw/*
 !data/raw/sample.pdf
 data/processed/*
 !data/processed/.gitkeep
+!data/processed/chunks.jsonl
 data/synthetic/*
 !data/synthetic/.gitkeep
+!data/synthetic/train.jsonl
+!data/synthetic/val.jsonl
 models/
 checkpoints/
 *.pt
