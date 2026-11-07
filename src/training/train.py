@@ -168,7 +168,6 @@ def run_gpu_training(config: Dict[str, Any], output_dir: Path):
             model=model,
             train_dataset=train_dataset,
             eval_dataset=val_dataset,
-            peft_config=peft_config,
             args=training_args,
         )
     except (ImportError, TypeError):
@@ -192,7 +191,6 @@ def run_gpu_training(config: Dict[str, Any], output_dir: Path):
             model=model,
             train_dataset=train_dataset,
             eval_dataset=val_dataset,
-            peft_config=peft_config,
             dataset_text_field="text",
             max_seq_length=train_cfg["max_seq_length"],
             tokenizer=tokenizer,
