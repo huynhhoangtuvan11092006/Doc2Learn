@@ -1,0 +1,20 @@
+# Synthesis Pipeline Configuration
+synthesis:
+  tasks:
+    - quiz
+    - summary
+    - troubleshooting
+  model:
+    name: "gpt-4o-mini"
+    temperature: 0.3
+    max_retries: 3
+    backoff_factor: 2.0
+  deduplication:
+    similarity_threshold: 0.75
+    min_question_chars: 25
+  split:
+    val_ratio: 0.1
+    random_seed: 42
+  paths:
+    input_chunks: "data/processed/chunks.jsonl"
+    output_dir: "data/synthetic"
