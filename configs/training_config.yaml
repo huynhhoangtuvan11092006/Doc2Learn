@@ -3,14 +3,14 @@
 
 model:
   base_model_name: "unsloth/llama-3-8b-Instruct"
-  torch_dtype: "bfloat16"
+  torch_dtype: "float16"
   trust_remote_code: true
 
 quantization:
   load_in_4bit: true
   bnb_4bit_quant_type: "nf4"               # NormalFloat4: optimal for normally distributed weights
   bnb_4bit_use_double_quant: true          # Quantizes quantization constants (saves extra 0.4 bit/param)
-  bnb_4bit_compute_dtype: "bfloat16"
+  bnb_4bit_compute_dtype: "float16"
 
 lora:
   r: 16                                    # Rank dimension of low-rank matrices
