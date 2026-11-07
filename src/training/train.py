@@ -105,7 +105,7 @@ def run_gpu_training(config: Dict[str, Any], output_dir: Path):
         load_in_4bit=config["quantization"]["load_in_4bit"],
         bnb_4bit_quant_type=config["quantization"]["bnb_4bit_quant_type"],
         bnb_4bit_use_double_quant=config["quantization"]["bnb_4bit_use_double_quant"],
-        bnb_4bit_compute_dtype=torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16,
+        bnb_4bit_compute_dtype=torch.float16,
     )
 
     # 2. Load Base Model in 4-bit
@@ -114,6 +114,7 @@ def run_gpu_training(config: Dict[str, Any], output_dir: Path):
         base_model_name,
         quantization_config=bnb_config,
         device_map="auto",
+        torch_dtype=torch.float16,
         trust_remote_code=config["model"]["trust_remote_code"],
     )
     model.config.use_cache = False  # Silence warnings during gradient checkpointing
@@ -158,8 +159,8 @@ def run_gpu_training(config: Dict[str, Any], output_dir: Path):
             logging_steps=train_cfg["logging_steps"],
             save_strategy=train_cfg["save_strategy"],
             seed=train_cfg["seed"],
-            fp16=not torch.cuda.is_bf16_supported(),
-            bf16=torch.cuda.is_bf16_supported(),
+            fp16=True,
+            bf16=False,
             report_to="none",
             max_length=train_cfg["max_seq_length"],
             dataset_text_field="text",
@@ -183,8 +184,8 @@ def run_gpu_training(config: Dict[str, Any], output_dir: Path):
             logging_steps=train_cfg["logging_steps"],
             save_strategy=train_cfg["save_strategy"],
             seed=train_cfg["seed"],
-            fp16=not torch.cuda.is_bf16_supported(),
-            bf16=torch.cuda.is_bf16_supported(),
+            fp16=True,
+            bf16=False,
             report_to="none",
         )
         trainer = SFTTrainer(
