@@ -161,7 +161,7 @@ def run_gpu_training(config: Dict[str, Any], output_dir: Path):
             fp16=not torch.cuda.is_bf16_supported(),
             bf16=torch.cuda.is_bf16_supported(),
             report_to="none",
-            max_seq_length=train_cfg["max_seq_length"],
+            max_length=train_cfg["max_seq_length"],
             dataset_text_field="text",
         )
         trainer = SFTTrainer(
