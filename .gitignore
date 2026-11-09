@@ -45,6 +45,10 @@ data/synthetic/*
 !data/synthetic/.gitkeep
 !data/synthetic/train.jsonl
 !data/synthetic/val.jsonl
+data/evaluation/*
+!data/evaluation/.gitkeep
+!data/evaluation/*.jsonl
+!data/evaluation/*.json
 models/
 checkpoints/
 *.pt
