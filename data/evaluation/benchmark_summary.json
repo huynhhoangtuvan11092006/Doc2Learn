@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-11-09T13:47:22.056009",
+  "base_model": {
+    "model_name": "Base Model (Llama-3-8B)",
+    "sample_count": 1,
+    "rouge_l": 0.1318,
+    "bleu_4": 0.0875,
+    "format_compliance_rate": 0.0,
+    "hallucination_rate": 0.4444,
+    "perplexity": 24.9781,
+    "human_eval_score": 2.4
+  },
+  "finetuned_model": {
+    "model_name": "Fine-Tuned Model (Llama-3-8B + QLoRA)",
+    "sample_count": 1,
+    "rouge_l": 0.1245,
+    "bleu_4": 0.0092,
+    "format_compliance_rate": 1.0,
+    "hallucination_rate": 0.625,
+    "perplexity": 12.2681,
+    "human_eval_score": 4.5
+  }
+}
