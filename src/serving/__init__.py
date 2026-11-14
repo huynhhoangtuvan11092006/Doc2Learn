@@ -25,6 +25,7 @@ from src.serving.schemas import (
     HealthResponse,
 )
 from src.serving.model_loader import LLMEngine
+from src.serving.app import app, create_app
 
 __all__ = [
     "extract_from_text",
@@ -44,4 +45,6 @@ __all__ = [
     "FullGenerationResponse",
     "HealthResponse",
     "LLMEngine",
+    "app",
+    "create_app",
 ]

@@ -296,3 +296,4 @@ class LLMEngine:
             f"- Practical application in modern distributed embedded networks.\n"
         )
         return slides, markdown
+
