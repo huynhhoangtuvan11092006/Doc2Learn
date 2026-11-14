@@ -149,3 +149,4 @@ class TestContentExtractorAndBenchmark:
         report_md = generate_serving_report(stats, output_path=report_file)
         assert report_file.exists()
         assert "PagedAttention" in report_md
+
